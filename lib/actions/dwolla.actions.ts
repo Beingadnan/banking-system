@@ -3,13 +3,21 @@
 import { Client } from "dwolla-v2";
 
 const getEnvironment = (): "production" | "sandbox" => {
-  const environment = process.env.DWOLLA_ENV as string;
+  const raw = process.env.DWOLLA_ENV?.trim().toLowerCase();
 
-  switch (environment) {
+  switch (raw) {
     case "sandbox":
       return "sandbox";
     case "production":
       return "production";
+    case undefined:
+    case "":
+      if (process.env.NODE_ENV === "production") {
+        throw new Error(
+          "DWOLLA_ENV must be set to `sandbox` or `production` in production"
+        );
+      }
+      return "sandbox";
     default:
       throw new Error(
         "Dwolla environment should either be set to `sandbox` or `production`"

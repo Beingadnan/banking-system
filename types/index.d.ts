@@ -88,7 +88,8 @@ declare type Bank = {
   bankId: string;
   accessToken: string;
   fundingSourceUrl: string;
-  userId: string;
+  /** Owner user id; may be `{ $id: string }` when loaded from the API for legacy form compatibility */
+  userId: string | { $id: string };
   shareableId: string;
 };
 

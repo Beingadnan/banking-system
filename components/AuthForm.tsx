@@ -46,7 +46,7 @@ const AuthForm = ({ type }: { type: string }) => {
       setIsLoading(true);
 
       try {
-        // Sign up with Appwrite & create plaid token
+        // Sign up (MongoDB + session) & create Plaid token
         
         if(type === 'sign-up') {
           const userData = {
